@@ -1,0 +1,17 @@
+{
+  "path": "/save",
+  "httpMethod": "POST",
+  "headers": {
+    "Authorization": "eyJraWQiOiJLTzRVMWZs"
+  },
+  "queryStringParameters": null,
+  "pathParameters": null,
+  "requestContext": {
+    "authorizer": {
+      "claims": {
+        "cognito:username": "test_user"
+      }
+    }
+  },
+  "body": "{\"id\": \"new\", \"username\": \"test_user\", \"title\": \"test_title_updated\", \"public\": false}"
+}
