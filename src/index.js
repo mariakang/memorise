@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import './css/style.css';
 import Home from './components/Home';
 
-console.log("process.env: " + process.env);
-
 let apiInvokeUrl = process.env.REACT_APP_API_INVOKE_URL;
 
 let userPoolData = {
