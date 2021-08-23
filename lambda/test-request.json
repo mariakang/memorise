@@ -1,3 +1,24 @@
+
+// lists
+{
+  "path": "/lists",
+  "httpMethod": "POST",
+  "headers": {
+    "Authorization": "eyJraWQiOiJLTzRVMWZs"
+  },
+  "queryStringParameters": null,
+  "pathParameters": null,
+  "requestContext": {
+    "authorizer": {
+      "claims": {
+        "cognito:username": "test_user"
+      }
+    }
+  },
+  "body": "{\"username\": \"test_user\"}"
+}
+
+// save
 {
   "path": "/save",
   "httpMethod": "POST",
@@ -13,5 +34,24 @@
       }
     }
   },
-  "body": "{\"id\": \"new\", \"username\": \"test_user\", \"title\": \"test_title_updated\", \"public\": false}"
+  "body": "{\"id\": \"test_user123\", \"username\": \"test_user\", \"title\": \"test_title_updated\", \"public\": false}"
+}
+
+// delete
+{
+  "path": "/delete",
+  "httpMethod": "POST",
+  "headers": {
+    "Authorization": "eyJraWQiOiJLTzRVMWZs"
+  },
+  "queryStringParameters": null,
+  "pathParameters": null,
+  "requestContext": {
+    "authorizer": {
+      "claims": {
+        "cognito:username": "test_user"
+      }
+    }
+  },
+  "body": "{\"listId\": \"test_user123\"}"
 }
