@@ -15,7 +15,8 @@ export default class Login extends React.Component{
       confirmPassword: "",
       passwordsMatch: false,
       verificationCode: "",
-      verificationCodeValid: false
+      verificationCodeValid: false,
+      isProcessing: false
     };
     this.handleChangeForm = this.handleChangeForm.bind(this);
     this.handleChangeFormToRegistration = this.handleChangeFormToRegistration.bind(this);
@@ -34,6 +35,7 @@ export default class Login extends React.Component{
   handleChangeForm(form) {
     this.setState({
       form: form,
+      isProcessing: false
     });
     console.log("form changed to " + this.state.form);
   }
@@ -103,6 +105,10 @@ export default class Login extends React.Component{
   }
 
   handleRegister(event) {
+    this.setState({
+      isProcesssing: true
+    });
+    console.log("isProcessing changed to " + this.state.isProcessing);
     let emailData = {
       Name: 'email',
       Value: this.state.email
@@ -124,10 +130,14 @@ export default class Login extends React.Component{
         }
       }
     );
-    this.handleChangeForm("verification");
+    this.handleChangeForm("verification");    
   }
   
   handleLogin(event) {
+    this.setState({
+      isProcesssing: true
+    });
+    console.log("isProcessing changed to " + this.state.isProcessing);
     let username = this.state.email.replace('@', '-at-');
 
     let authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
@@ -151,6 +161,10 @@ export default class Login extends React.Component{
   }
   
   handleVerify(event) {
+    this.setState({
+      isProcesssing: true
+    });
+    console.log("isProcessing changed to " + this.state.isProcessing);
     let username = this.state.email.replace('@', '-at-');
     let cognitoUser = new AmazonCognitoIdentity.CognitoUser({
       Username: username,
@@ -170,15 +184,16 @@ export default class Login extends React.Component{
 
   render() {
     let form = this.state.form;
+    let isProcessing = this.state.isProcessing;
     let emailAndPasswordValid = this.state.emailValid && this.state.passwordValid;
     let nameValidAndPasswordsMatch = this.state.nameValid && this.state.passwordsMatch;
     let emailAndVerificationCodeValid = this.state.emailValid && this.state.verificationCodeValid;
     let submitButton = 
       form === "login"
-        ? (<button onClick={this.handleLogin} disabled={!emailAndPasswordValid}>Log in</button>)
+        ? (<button onClick={this.handleLogin} disabled={!emailAndPasswordValid || isProcessing}>Log in</button>)
         : form === "registration"
-          ? (<button onClick={this.handleRegister} disabled={!emailAndPasswordValid || !nameValidAndPasswordsMatch}>Register</button>)
-          : (<button onClick={this.handleVerify} disabled={!emailAndVerificationCodeValid}>Verify</button>);
+          ? (<button onClick={this.handleRegister} disabled={!emailAndPasswordValid || !nameValidAndPasswordsMatch || isProcessing}>Register</button>)
+          : (<button onClick={this.handleVerify} disabled={!emailAndVerificationCodeValid || isProcessing}>Verify</button>);
     let name = null;
     let confirmPassword = null;
     if (form === "registration") {
