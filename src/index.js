@@ -11,7 +11,6 @@ let userPoolData = {
 };
 
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
-
 let cognitoUserPool = new AmazonCognitoIdentity.CognitoUserPool(userPoolData);
 
 ReactDOM.render(
